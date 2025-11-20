@@ -9,12 +9,17 @@ export const searchConcerts = async (location) => {
         return [];
     }
 
+    // Get today's date in ISO format for the API
+    const today = new Date();
+    const startDateTime = today.toISOString().split('.')[0] + 'Z'; // Format: YYYY-MM-DDTHH:MM:SSZ
+
     const params = new URLSearchParams({
         apikey: API_KEY,
         keyword: location,
         segmentName: 'Music',
         sort: 'date,asc',
-        size: '20' // Limit results
+        size: '20', // Limit results
+        startDateTime: startDateTime // Only get events from today onwards
     });
 
     try {
